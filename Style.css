@@ -1,0 +1,56 @@
+/* Reset básico */
+body, ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  background: rgb(245, 247, 245);
+  color: #333;
+}
+
+/* Navbar */
+.navbar {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 12px 30px;
+}
+
+.logo {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: rgb(0, 0, 0) !important;
+  text-decoration: none;
+}
+
+/* Links */
+.nav-links .nav-link {
+  color: rgb(0, 0, 0) !important;
+  font-size: 0.95rem;
+  margin: 0 10px;
+  transition: color 0.3s;
+}
+
+.nav-links .nav-link:hover {
+  color: #d1d1d1 !important;
+}
+
+/* Carrito */
+.cart-icon {
+  color: white;
+  text-decoration: none;
+  font-size: 1.3rem;
+  position: relative;
+}
+
+.cart-count {
+  background: red;
+  color: white;
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 50%;
+  position: absolute;
+  top: -8px;
+  right: -10px;
+}
