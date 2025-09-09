@@ -43,6 +43,14 @@ body {
   font-size: 1.3rem;
   position: relative;
 }
+.container {
+  margin: 0 auto 400px auto; /* margen inferior para separar de otras secciones */
+}
+
+.destacados {
+  margin-top: 60px; /* espacio entre las cards y los destacados */
+  padding: 0 10px;  /* pequeño padding lateral */
+}
 
 .cart-count {
   background: red;
@@ -55,108 +63,140 @@ body {
   right: -10px;
 }
 
-/* Layout de las cards */
-.cards-layout {
+.destacados h2 {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.destacado-img {
+  width: 200px;      /* tamaño fijo de cada imagen */
+  height: 200px;
+  object-fit: cover; /* mantiene proporción */
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+
+
+/* ===========================
+   📌 Layout de las 4 cards
+=========================== */
+.container {
   display: grid;
-  grid-template-columns: 1fr 2fr; /* izquierda más chica, derecha más grande */
-  gap: 1.5rem;
-  padding: 2rem;
-  align-items: stretch;
+  grid-template-areas: 
+    "card1 card2"
+    "card1 card3"
+    "card4 card4";
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+  max-width: 1000px;
+  margin: auto;
 }
 
-/* Columna izquierda con 2 cards apiladas */
-.card-small {
-  background: #fff;
-  border-radius: 1rem;
+.card {
+  position: relative;   /* para overlay */
+  display: block;       /* necesario si es <a> */
   overflow: hidden;
+  border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
 }
 
-.cards-layout .card-small:nth-child(1) {
-  grid-column: 1;
-  grid-row: 1;
-}
-
-.cards-layout .card-small:nth-child(2) {
-  grid-column: 1;
-  grid-row: 2;
-}
-
-/* Card grande a la derecha ocupando toda la columna */
-.card-large {
-  grid-column: 2;
-  grid-row: 1 / span 2; /* ocupa dos filas */
-  background: #fff;
-  border-radius: 1rem;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-/* Slider */
-.slides {
-  position: relative;
+.card img {
   width: 100%;
-  height: 180px; /* más chico que antes */
-  overflow: hidden;
-}
-
-.card-large .slides {
   height: 100%;
-  min-height: 300px; /* reducido para que no se vea tan gigante */
+  object-fit: cover;    /* CORREGIDO */
+  border-radius: 10px;
+  display: block;
+  transition: transform 0.5s ease;
 }
 
-.slides img {
+.card:hover img {
+  transform: scale(1.05);
+}
+
+/* Overlay */
+.card .overlay {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  background: rgba(0,0,0,0.4);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
   opacity: 0;
-  transition: opacity 1s ease-in-out;
+  transition: opacity 0.3s ease;
+  padding: 0 10px;
 }
 
-.slides img.active {
+.card:hover .overlay {
   opacity: 1;
 }
 
-.card-content {
-  padding: 1rem;
-  text-align: center;
+/* Áreas + proporciones */
+.card1 { grid-area: card1; aspect-ratio: 4 / 3.2; }
+.card2 { grid-area: card2; aspect-ratio: 4 / 3.1; }
+.card3 { grid-area: card3; aspect-ratio: 4 / 3.1; }
+.card4 { grid-area: card4; aspect-ratio: 8 / 2; }
+
+/* Responsive */
+@media (max-width: 992px) {
+  .container {
+    grid-template-areas: 
+      "card1"
+      "card2"
+      "card3"
+      "card4";
+    grid-template-columns: 1fr;
+  }
+
+  .card1, .card2, .card3, .card4 {
+    aspect-ratio: auto;
+  }
 }
 
+/* ===========================
+   📌 Footer
+=========================== */
 footer {
-  font-size: 0.9rem;   /* texto más compacto */
-  line-height: 1.4;    /* menos aire entre líneas */
+  font-size: 0.9rem;
+  line-height: 1.4;
 }
 
 footer h6 {
-  font-size: 1rem;     /* títulos más chicos */
+  font-size: 1rem;
 }
 
 footer p {
-  margin-bottom: 3px;  /* reduce espacio entre párrafos */
+  margin-bottom: 3px;
 }
+
 /* ===========================
    📱 Responsive
 =========================== */
 @media (max-width: 992px) {
-  .cards-layout {
-    grid-template-columns: 1fr; /* todas en una columna */
-    grid-auto-rows: auto;
+  .container {
+    grid-template-areas: 
+      "card1"
+      "card2"
+      "card3"
+      "card4";
+    grid-template-columns: 1fr;
   }
 
-  /* Mover la card grande arriba */
-  .card-large {
-    order: -1; /* con display:flex dentro de cards-layout no hace falta, pero con grid funciona con reordenando HTML si querés */
-    grid-column: auto;
-    grid-row: auto;
-  }
-
-  .slides {
-    height: 200px;
-  }
-
-  .card-large .slides {
-    min-height: 220px;
+  .card1,
+  .card2,
+  .card3,
+  .card4 {
+    aspect-ratio: auto; /* se adaptan al contenido en móvil */
   }
 }
 
